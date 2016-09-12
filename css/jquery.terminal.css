@@ -247,3 +247,12 @@
 .terminal a:hover {
     color: red;
 }
+
+.terminal-output{
+    background-color: black;
+    padding-left:10px;
+}
+
+.prompt {
+    padding-left:10px;
+}
