@@ -24,7 +24,8 @@ jQuery(document).ready(function($) {
 	if (command == 'help') {
 	    var help = "Below are the commands currently supported. \n"
 		     + "\t intro: a little bit about myself. \n"
-		     + "\t resume: download a copy of my resume. \n";
+		     + "\t resume: download a copy of my resume. \n"
+		     + "\t email: send me an email";
             term.echo(help);
         } else if (command == 'email') {
 	    // open email client
@@ -50,7 +51,7 @@ jQuery(document).ready(function($) {
             term.echo("unknown command: " + command);
         }
     }, {
-        greetings: "Hi! you have stumbled upon Zhiyuan Lin's home page. Enter help to see the list of commands.",
+        greetings: "Hi! you have stumbled upon Zhiyuan \'Zane\' Lin's home page. Enter help to see the list of commands.",
         onBlur: function() {
             // prevent loosing focus
             return false;
