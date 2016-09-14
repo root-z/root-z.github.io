@@ -27,22 +27,15 @@ jQuery(document).ready(function($) {
 		     + "\t resume: download a copy of my resume. \n";
             term.echo(help);
         } else if (command == 'email') {
-	    
+	    // open email client
+	    window.open('mailto:zane.z.lin@gmail.com');
 	} else if (command == 'intro') {
 	    term.echo(intro);
-	} else if (command == 'test'){
-            term.push(function(command, term) {
-                if (command == 'help') {
-                    term.echo('if you type ping it will display pong');
-                } else if (command == 'ping') {
-                    term.echo('pong');
-                } else {
-                    term.echo('unknown command ' + command);
-                }
-            }, {
-                prompt: 'test> ',
-                name: 'test'});
-        } else if (command == "js") {
+	} else if (command == 'resume') {
+	    window.open('ZResume.pdf');
+	}
+	 /*
+	 else if (command == "js") {
             term.push(function(command, term) {
                 var result = window.eval(command);
                 if (result != undefined) {
@@ -51,7 +44,9 @@ jQuery(document).ready(function($) {
             }, {
                 name: 'js',
                 prompt: 'js> '});
-        } else {
+         } 
+	  */
+	 else {
             term.echo("unknown command: " + command);
         }
     }, {
