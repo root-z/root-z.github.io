@@ -19,9 +19,14 @@ jQuery(document).ready(function($) {
      var intro = "I recently graduated from the University of Waterloo with a Masters degree specializing in software development. \n"
 	       + "I\'m interested in algorithm design and statistical anlaysis.";
     $('body').terminal(function(command, term) {
-        if (command == 'help') {
-            term.echo("The commands availabe now are: intro");
-        } else if (command == 'intro') {
+	if (command == 'help') {
+	    var help = "Below are the commands currently supported. \n"
+		     + "\t intro: a little bit about myself. \n"
+		     + "\t resume: download a copy of my resume. \n";
+            term.echo(help);
+        } else if (command == 'email') {
+	    
+	} else if (command == 'intro') {
 	    term.echo(intro);
 	} else if (command == 'test'){
             term.push(function(command, term) {
