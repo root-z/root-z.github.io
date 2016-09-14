@@ -22,10 +22,10 @@ jQuery(document).ready(function($) {
 	       + "I\'m interested in algorithm design and statistical anlaysis.";
     $('body').terminal(function(command, term) {
 	if (command == 'help') {
-	    var help = "Below are the commands currently supported. \n"
-		     + "\t intro: a little bit about myself. \n"
-		     + "\t resume: download a copy of my resume. \n"
-		     + "\t email: send me an email";
+	    var help = "Below are the commands currently supported: \n"
+		     + "\t intro -- a little bit about myself. \n"
+		     + "\t resume -- download a copy of my resume. \n"
+		     + "\t email -- send me an email";
             term.echo(help);
         } else if (command == 'email') {
 	    // open email client
