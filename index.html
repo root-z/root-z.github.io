@@ -36,7 +36,9 @@ jQuery(document).ready(function($) {
 	    window.open('ZResume.pdf');
 	} else if (command == '') {
             // do nothing
-        } else {
+        } else if (command == 'exit') {
+	    window.close();
+	} else {
             term.echo("unknown command: " + command);
         }
     }, {
