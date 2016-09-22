@@ -34,24 +34,13 @@ jQuery(document).ready(function($) {
 	    term.echo(intro);
 	} else if (command == 'resume') {
 	    window.open('ZResume.pdf');
-	}
-	 /*
-	 else if (command == "js") {
-            term.push(function(command, term) {
-                var result = window.eval(command);
-                if (result != undefined) {
-                    term.echo(String(result));
-                }
-            }, {
-                name: 'js',
-                prompt: 'js> '});
-         } 
-	  */
-	 else {
+	} else if (command == '') {
+            // do nothing
+        } else {
             term.echo("unknown command: " + command);
         }
     }, {
-        greetings: "Hi! you have stumbled upon Zhiyuan \'Zane\' Lin's home page. Enter help to see the list of commands.",
+        greetings: "Hi! You have stumbled upon Zhiyuan \'Zane\' Lin's home page. Enter help to see the list of commands.",
         onBlur: function() {
             // prevent loosing focus
             return false;
@@ -59,7 +48,7 @@ jQuery(document).ready(function($) {
     });
 });
 
-</script>
+    </script>
     
   </body>
 
