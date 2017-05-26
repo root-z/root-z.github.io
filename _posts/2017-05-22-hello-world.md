@@ -10,3 +10,5 @@ tags: []
 writing some stuff you know.
 
 $$x_i + y_i = z_i$$
+
+what happened man?
