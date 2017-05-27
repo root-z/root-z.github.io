@@ -1,3 +1,6 @@
+# set markdown processor to support math
+markdown: maruku
+
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year/:month/:day/:title 
@@ -81,7 +84,7 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : disqus
+    provider : false # turn off disqus for now
     disqus :
       short_name : jekyllbootstrap
     livefyre :
