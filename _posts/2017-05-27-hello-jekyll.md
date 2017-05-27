@@ -14,3 +14,6 @@ $$
 x_i + y_i = z_i
 $$
 
+To setup Mathjax, [this page](http://docs.mathjax.org/en/latest/start.html) is a good place to get started.
+
+I'm still going through [Jekyll Quickstart](http://jekyllbootstrap.com/usage/jekyll-quick-start.html).
