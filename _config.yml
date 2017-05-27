@@ -1,5 +1,5 @@
 # set markdown processor to support math
-markdown: maruku
+markdown: kramdown
 
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
