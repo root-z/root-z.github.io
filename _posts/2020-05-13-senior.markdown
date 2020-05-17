@@ -5,7 +5,7 @@ date:   2020-05-14 21:00:55 -0700
 categories: basic
 ---
 
-At this point of my career, I have grown into a more senior role in my own team and I have worked with enough junior engineers who are trying to grow into a senior role. People have different ideas about what an senior engineer should be like. For me, a senior engineer is one who can design and drive delivery of features and products on their own without continous supervision and guidance from others. It does not mean that they know everything and does not require help. It does mean that you can hand them a hard problem and they will work their way to a good solution. Here I will discuss some qualities that I believe are essential for junior engineers to grow into the next level.
+At this point of my career, I have grown into a more senior role in my own team and I have worked with enough junior engineers who are developing themselves and experiencing growth pains. People have different ideas about what an senior engineer should be like. For me, a senior engineer is one who can design and drive delivery of features and products on their own without continous supervision and guidance from others. It does not mean that they know everything and does not require help. It does mean that you can hand them a hard problem and they will work their way to a good solution. Here I will discuss some qualities that I believe are essential for junior engineers to grow into the next level.
 
 # Solving hard problems
 
