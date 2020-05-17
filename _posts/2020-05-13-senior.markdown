@@ -7,30 +7,30 @@ categories: basic
 
 At this point of my career, I have grown into a more senior role in my own team and I have worked with enough junior engineers who are trying to grow into a senior role. People have different ideas about what an senior engineer should be like. For me, a senior engineer is one who can design and drive delivery of features and products on their own without continous supervision and guidance from others. It does not mean that they know everything and does not require help. It does mean that you can hand them a hard problem and they will work their way to a good solution. Here I will discuss some qualities that I believe are essential for junior engineers to grow into the next level.
 
-Solving hard problems
+# Solving hard problems
 
 Being able to solve hard problem is for me the most important quality that decides whether someone can make senior engineer. Senior engineers in general deal with a lot more unknowns and don't always have people to guide them. Again it is not about having deep technical knowledge. Some junior engineers make the mistake to think that they just need to learn more frameworks and languages. Whie general technical and theoretical knowledge helps, it's never about how many programming languages or frameworks you know. For me more importantly it's about how an engineer approach something she doesn't know. Some people got so used to solving the same problems again and again that their mind freezes the moment they get out of their comfort zone, or they try to see everything as a nail because they have a hammer. A good senior engineer, even when looking at problems outside of their expertise, could decompose the problem and start making progress in solving the problem. 
 
-Thinking about the product and experience
+# Thinking about the product and experience
 
 Junior engineers think about the code they write, but they lack experience in designing the experience of their products. This is not just about UX design. Even if it is a REST API, or a library, engineers must think about what the overall experience of their code will be. For example, how are errors going to be presented to your user; how extensible is the API; how is the documentation. Operator experience is another matter to consider. If someone else is going to maintain your service or application, how do you make their life easier. Do you provide the right metrics and logs for them?
 
 In the end, it's not really about the code. It's about the final products and the problems they solve. A mature engineer uses the right abstractions and mental models to help users navigate their products easily.
 
-Ask the right questions
+# Ask the right questions
 
 Asking questions in general is encouraged. However some junior engineers take it to mean that they should ask whatever questions that comes to mind. My general opinion is, learn to ask clarifying questions and use questions to break down a complex problem. However, before asking a question, try to make a decision on whether it's a problem that you can research on your own. Develop the habit of searching online and checking documentations before you ask a question. A senior engineer I used to work with would shout at whoever that asks questions that can be answered with 10 minutes of Googling, and although it might sound aggresive I think his approach eventually helps the junior members of the team. 
 
 As a junior engineer, if you practice researching simple problems, it would also help you become more independent. Senior engineers don't know everything either, they just get better at figuring things out. Besides this would really help the more experienced member of your team because it would mean a lot less interruptions to their daily workflow.
 
-Verify assumptions
+# Verify assumptions
 
 One of the most worrying tendency that I see with some junior engineers is making false assumptions. I cannot count the number of ridiculous assumptions I have heard from junior engineers. Some people simply imagine up a way things work, and never bother to verify it. This strategy sometimes work in daily life — you don't need to know exactly what happens when you plug in your freezer or turn on your car to use these objects. However, it doesn't work when these kind of assumptions are affecting your project design. False assumptions are one of the major sources of software bugs I have seen, and an engineer cannot be trusted until they learn to verify their assumptions. It doesn't mean they have to be always right. People take shortcuts and make mistakes. However, I believe the instinct to verify assumptions regarding design/code is essential to being a good eningeer.
 
-Persist
+# Persist
 
 As engineers we have to do a lot of researching and debugging. Junior engineers are not as good at doing these, but usually not because of lack of knowledge, but due to lack of patience. I have seen it many times when a problem is buried deep in multiple layers of serivce/code, a junior engineer would throw in their towels once they get stuck where the more mature ones would persist, not because they know better, but because they manage to keep their head clear while looking deeper.
 
-Less is more
+# Less is more
 
 Junior engineers like adding new things. New languages, new tools. Make everything bigger. It's not hard to add another microservice or what not. It is significantly harder to achieve the same value with less. Senior engineers do reduction and simplificaiton. That's how they manage to keep complex problems in control and develop maintanable software. This is perhaps the hardest quality to gain, as it requires a great deal of experience. I know plenty of somewhat experienced engineers who are still struggling with it, including myself. However, it is a worthy goal and would truly mark the growth of an engineer.
