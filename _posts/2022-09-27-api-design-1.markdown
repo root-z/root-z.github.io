@@ -1,0 +1,76 @@
+---
+layout: post
+title: "Web Service Part 1: API design"
+date: 2022-10-01 3:58:00 -0700
+categories: design
+excerpt_separator: <!--ex-->
+---
+
+In this post I will discuss some of the problems to consider when creating a new API.
+<!--ex-->
+
+# RPC vs. REST
+This post would be incomplete without an obligatory mention of the good old RPC vs. REST question. I am not going into the details here as you can find [a lot of information already around](https://stackoverflow.com/questions/26830431/web-service-differences-between-rest-and-rpc). Which one to use depends on the specific use cases. However, I do want to mention the performance aspect of this issue. A large number of modern RESTful APIs uses JSON as request body, but JSON can be less efficient than more compact serialization protocol such as Protobuf which is used by for example gRPC. RPC protocols such as gRPC also has other performance improvements built in, such as the use of HTTP/2, so it could perform better than vanilla RESTful service. It is of course possible to combine RESTful APIs with protobuf and include other optimizations, although it would require slightly more setup and doesn't seem to be done very often.
+
+# Asynchronous vs. Synchronous API
+If the API involves a long running process, it's usually better to make it asynchronous to free up the HTTP connections and potentially the threads blockd by the synchronous IO operations. Asynchronous APIs are generally more complex than synchronous APIs in terms of implementation and integration. However, the performance gain on both client and server side can make the complexity worthwhile.
+
+There are many ways to implement asynchronous APIs. This [AWS article](https://aws.amazon.com/blogs/architecture/managing-asynchronous-workflows-with-a-rest-api/) discusses some of the common methods used. We also briefly cover them here.
+
+### Polling
+Polling is perhaps the easiest way to asynchronous APIs. Essentially you create 2 APIs, one to start the asynchronous process, e.g. ```startJob```, and the other one to check whether the asynchronous process completed, e.g. ```getJobStatus``` returning ```InProgress/Complete/Failed```.
+
+With this approach it's on the client to repeated check with server until the job reaches a terminal state, so the client side implementation requires more effort.
+
+### Callback
+Callbacks in APIs are often implemented with [Webhooks](https://en.wikipedia.org/wiki/Webhook). With Webhooks, the client submits a URL in the request to server, and the server sends a request (usually POST) to the URL when a lifecycle event (complete/failed etc.) occurs to the request.
+
+With this method, client do not have to repeatly check the state of a request and usually gets the response more promptly. However, it does require the client to set up a server to handle the webhook requests, which is not possible in some scenarios.
+
+### Websocket
+[WebSocket](https://en.wikipedia.org/wiki/WebSocket) is a communication protocol based on TCP that supports full-duplex (bi-directional and simultaneous) communication. One of its major use case is to allow the server to send data to client with explicit request from the client. It also remove the need for polling. Most modern browser supports WebSocket so if the requirement is to access an asynchronous API from the browser, WebSocket is probably your best bet.
+
+
+# Batching
+If the service expects high QPS, adding batching support to the mutation APIs can greatly improve performance for both the client and server by reducing number of HTTP connections. For HTTP based API, this is usually done with a POST operation. The AWS DynamoDB [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html) is a good example of batch API.
+
+The things to consider in batching APIs are:
+
+1. Batching limits
+    * There should be a limit to how many items could be batched together in a request. This is decided by backend performance, but also generally the max size of a single batched request that is supported. 
+1. Error handling
+    * A batched request could encounter either total or partial failures in a batched request. Partial failure means some but not all of the items in the request failed. With partial failures, the response should make clear which items succeeded and which failed, so that user could act correspondingly.
+
+# Limits
+Every API should have some kind of limits in order to protect themselves. Some limits that you should consider are:
+1. Request rate limit, usually measured by Request Per Second
+    * This is decided by many factors. For example:
+        * downstream capacity
+        * number of server
+        * server CPU and network capacity
+        * server thread and connection pool size
+        * OS file descriptor limit
+    * We will discuss implementation of rate limit in a separate article.
+2. Request size limit
+    * Every field in the request should have a reasonable size limit, to prevent a single large field taking up memory of the server.
+    * If the API involves large file upload, you should look into streaming the data, which is supported in most web frameworks. See a [Ktor example](https://ktor.io/docs/response.html#streaming).
+3. Service timeout
+    * If the API gets stuck for an long time unexpectedly, it should time out so that the client can retry.
+4. Response size limit
+    * large response is also hard for client to handle.
+    * If your response include many items, you might want to implement [pagination](https://www.moesif.com/blog/technical/api-design/REST-API-Design-Filtering-Sorting-and-Pagination/).
+
+# Error Codes
+The APIs should implement proper [HTTP status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) and error codes. An good example of error responses can be found [here](https://www.baeldung.com/rest-api-error-handling-best-practices).
+
+# API specification
+Once you have some idea how your API should look like, you would want a way to specify and document your API. You could do this in code or with [OpenAPI specification](https://swagger.io/specification/).
+
+There are many [generators](https://openapi-generator.tech/docs/generators/) available to generate both client and server code from the OpenAPI specification. Some web frameworks such as Python's [FastAPI](https://fastapi.tiangolo.com/advanced/extending-openapi/) also generates OpenAPI specification automatically based on the code.
+
+# What's Next
+Below are some topics that I will cover in future articles:
+1. AuthN/AuthZ
+1. SSL
+1. Reverse Proxy
+1. Rate Limiting

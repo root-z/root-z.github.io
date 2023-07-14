@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "Welcome to my blog!"
+date:   2019-04-20 12:22:55 -0700
+categories: basic
+---
+
+For a beautiful start, here is _Portrait of A Lady_ by Giovanni Boldini.
+
+![alt text](/assets/boldini1912.jpg "Boldini1912")

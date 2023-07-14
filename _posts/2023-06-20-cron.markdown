@@ -1,0 +1,85 @@
+---
+layout: post
+title: "How to create a serverless Crob Job on AWS"
+date: 2023-06-20 21:45:00 -0700
+categories: infrastructure
+excerpt_separator: <!--ex-->
+---
+
+A cron job is a job scheduled to run a regular basis. While it's possible to schedule cron jobs from a single server, a serverless cron can run more reliably because it is not subject to a single point of failure. You can also save server cost if you don't need the cronjob to be running all the time. In this post we discuss how to build cron jobs on AWS. The basic structure of a scheduled job on AWS is as below.
+
+![alt text](/assets/cron.png "AWS eventbridge diagram")
+
+<!--ex-->
+
+# Using AWS Copilot
+
+The simplest way to do this is to run AWS Copilot. 
+
+To use AWS Copilot, you just need to:
+1. create a [Dockerfile](https://docs.docker.com/get-started/02_our_app/) for your cron logic
+2. install [AWS Copilot](https://aws.github.io/copilot-cli/docs/getting-started/install/)
+3. Run `copilot init` and choose `Scheduled Job`
+
+```console
+  Which workload type best represents your architecture?  [Use arrows to move, type to filter, ? for more help]
+    Request-Driven Web Service  (App Runner)
+    Load Balanced Web Service   (Internet to ECS on Fargate)
+    Backend Service             (ECS on Fargate)
+    Worker Service              (Events to SQS to ECS on Fargate)
+    Static Site                 (Internet to CDN to S3 bucket)
+  > Scheduled Job               (Scheduled event to State Machine to Fargate)
+```
+
+The application generated uses AWS step function to connect the fargate task to a cloudwatch scheduled event.
+
+The disadvantage of AWS Copilot is that it is not as extensible if you want to create other AWS resources for the cron job.
+
+# Using AWS CDK
+
+Alternatively we can build a cron job with AWS CDK. There is a ECS pattern in AWS CDK for that.
+
+Follow the official [AWS CDK setup guide](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) to start a CDK project. Once you have the `cdk` commandline tool installed, you can call the below command to start a CDK project.
+
+```console
+cdk init app --language [language]
+```
+
+Below is the example CDK code for creating a scheduled Fargate task in Python. You can find the full project code [here](https://github.com/root-z/py-scheduled-fargate).
+
+```python
+from aws_cdk import (
+    Stack,
+    aws_ec2 as ec2,
+    aws_ecs as ecs,
+    aws_applicationautoscaling as appscaling,
+    aws_ecs_patterns as ecsp,
+)
+from aws_cdk.aws_ecr_assets import Platform
+from constructs import Construct
+from pathlib import Path
+
+class InfraStack(Stack):
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+        super().__init__(scope, construct_id, **kwargs)
+
+        # define a VPC
+        vpc = ec2.Vpc(self, "Vpc", max_azs=1)
+        # create an ECS cluster
+        cluster = ecs.Cluster(self, "EcsCluster", vpc=vpc)
+        scheduled_fargate_task = ecsp.ScheduledFargateTask(
+            self,
+            "ScheduledFargateTask",
+            cluster=cluster,
+
+            scheduled_fargate_task_image_options=ecsp.ScheduledFargateTaskImageOptions(
+              # build the image from a local directory containing a Dockerfile
+                image=ecs.AssetImage(
+                    str(Path("..") / "app"), platform=Platform.LINUX_AMD64
+                ),
+                memory_limit_mib=512,
+            ),
+            # schedule expression
+            schedule=appscaling.Schedule.expression("rate(1 day)"),
+        )
+```
