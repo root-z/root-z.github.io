@@ -24,6 +24,8 @@ As a NAT Gateway is needed for each subnet. That's easily $32 per month per priv
 
 AWS used to provide a [NAT instance AMI](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_NAT_Instance.html) but the support is now deprecated. Digital ocean has some [documentation on setting up a NAT instance](https://docs.digitalocean.com/products/networking/vpc/how-to/configure-droplet-as-gateway/) which can be a much cheaper option. The user would only need to pay for the instance and the egress from the instance, and digital ocean droplets have [free egress allowance](https://docs.digitalocean.com/products/billing/bandwidth/#droplets). While setting up NAT instances can potentially reduce cost, it may impact the availability of the service. For more detailed comparison between self-hosted NAT instance and NAT gateway, see this [article](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html). NAT Gateway also has other limitations. For example a single NAT Gateway on AWS can support only up to [100 Gbps of bandwidth and 10 million packets per second](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-basics).
 
+Thanks to Thanan Traiongthawon for providing early feedback!
+
 # Glossary
 Using AWS examples:
 1. [VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
